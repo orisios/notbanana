@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Виселица</title>
+</head>
+<body style="background:black; color: white">
+    <h1>Виселица</h1>
+    <script>
+        /*
+        Выбрать случайное слово
+        Пока слово не угадано {
+            Показать игроку текущее состояние игры.
+            Запросить у игрока вариант ответа.
+            Если игрок хочет выйти из игры {
+                Выйти из игры
+            }
+            Иначе Если вариант ответа - не одиночная буква {
+                Сообщить игроку, что он должен ввести букву
+            }
+            Иначе {
+                Если такая буква есть в слове {
+                    Обновить состояние игры, подставив нужную букву
+                }
+            }
+            }
+        Поздравить игрока с победой — слово угадано.
+        }
+
+        */
+
+//         Выбрать случайное слово
+        var words = [
+            "тюлень",
+
+        ];
+        var word = words[Math.floor(Math.random() * words.length)];
+
+//          Массив с ответом
+        var answerArray = [];
+        for (x = 0; x < word.length; x++) {
+            answerArray[x] = "_";
+        }
+
+        var wrong = null;
+
+        var remainingLetters = word.length;
+        var remainingLettersFull = word.length;
+        var remainingAttempts = 10;
+
+//          Игровой цикл
+//          Отображение состояния игры
+        while (remainingLetters > 0 && remainingAttempts > 0) {
+            alert(answerArray.join(" "));
+        
+//          Обработка введённого ответа
+            var guess = prompt("Угадайте букву или нажмите отмена для выхода из игры");
+            guess = guess.toLowerCase();
+
+            if (guess === null) {
+                break;
+            } else if (guess.length !== 1) {
+                alert("Пожалуйста, введите одну букву.");
+                remainingAttempts++;
+            } else {
+//          Обновление состояния игры
+            for (var j = 0; j < word.length; j++) {
+                if (word[j] === guess && answerArray[j] !== guess) {
+                    answerArray[j] = guess;
+                    remainingLetters--;
+                    alert("Верно! Осталось угадать букв: " + remainingLetters);
+                } else if (answerArray[j] === guess) {
+                    alert("Вы уже угадали эту букву");
+                    remainingAttempts++;
+                }
+            }
+            }
+
+            remainingAttempts = (remainingAttempts - 1) + (remainingLettersFull - remainingLetters);
+            
+            if (remainingLettersFull - remainingLetters != 0) {
+                remainingLettersFull = remainingLettersFull - 1;
+            }
+            
+            alert("Осталось попыток: " + remainingAttempts);
+            if (remainingAttempts === 0) {
+                alert("Поражение...");
+            }
+        }
+//          Конец игры
+            if (remainingAttempts !== 0) {
+                alert(answerArray.join(" "));
+                alert("Победа! Было загадано слово: " + word);
+            }
+
+
+    </script>
+</body>
+</html>
