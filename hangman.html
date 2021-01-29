@@ -30,18 +30,48 @@
 
         */
 
+
+//         Функции
+
+        var pickWord = function () {
+            return words[Math.floor(Math.random() * words.length)];
+        }
+        var setupAnswerArray = function (word) {
+            var xxx = ["_"];
+            for (x = 0; x < word.length; x++) {
+                xxx[x] = "_";
+            }
+            return xxx;
+        }
+        var showPlayerProgress = function (answerArray) {
+            return alert(answerArray.join(" "));
+        }
+        var getGuess = function () {
+            guess = prompt("Угадайте букву или нажмите отмена для выхода из игры");
+            guess = guess.toLowerCase();
+            return guess;
+        }
+        var showAnswerAndCongradulatePlayer = function () {
+            if (remainingAttempts !== 0) {
+                alert(answerArray.join(" "));
+                alert("Победа! Было загадано слово: " + word);
+            }
+        }
+
+
+
+
 //         Выбрать случайное слово
         var words = [
             "тюлень",
+            "индюшка",
+            "огурец"
 
         ];
-        var word = words[Math.floor(Math.random() * words.length)];
+        var word = pickWord();
 
 //          Массив с ответом
-        var answerArray = [];
-        for (x = 0; x < word.length; x++) {
-            answerArray[x] = "_";
-        }
+        var answerArray = setupAnswerArray(word);
 
         var wrong = null;
 
@@ -52,11 +82,10 @@
 //          Игровой цикл
 //          Отображение состояния игры
         while (remainingLetters > 0 && remainingAttempts > 0) {
-            alert(answerArray.join(" "));
-        
+            showPlayerProgress(answerArray);
+            
 //          Обработка введённого ответа
-            var guess = prompt("Угадайте букву или нажмите отмена для выхода из игры");
-            guess = guess.toLowerCase();
+            var guess = getGuess();
 
             if (guess === null) {
                 break;
@@ -89,11 +118,7 @@
             }
         }
 //          Конец игры
-            if (remainingAttempts !== 0) {
-                alert(answerArray.join(" "));
-                alert("Победа! Было загадано слово: " + word);
-            }
-
+            showAnswerAndCongradulatePlayer();
 
     </script>
 </body>

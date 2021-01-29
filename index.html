@@ -6,10 +6,15 @@
     <title>JS, JS, JS, JS</title>
 </head>
 <body style="background:black; color: white">
-    <h1>Привет, мир</h1>
-    <p>Javascript - это жизнь</p>
+    <h1 id="main-heading">Привет, мир</h1>
+    <p>Javascript - это прикольно</p>
+    <!--            jQuery-2.1.0.js         --> 
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
     <script>
-        
+        var newHeadingText = prompt("Введите заголовок:");
+        $("#main-heading").text(newHeadingText);
+        $("body").append("<p>Это новый параграф, добавленный с помощью jQuery</p>");
     </script>
+
 </body>
 </html>
