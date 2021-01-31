@@ -6,14 +6,50 @@
     <title>JS, JS, JS, JS</title>
 </head>
 <body style="background:black; color: white">
-    <h1 id="main-heading">Привет, мир</h1>
-    <p>Javascript - это прикольно</p>
+    <h1 id="main-heading">Привет, мир!</h1>
+    <h2 id="delayed">Плавно исчезаю, а через 5 секунд, снова появляюсь...</h2>
+    <h3 id="fadeTOTOTO">FadeTO</h3>
+    <h4 id="timer"></h4>
+
     <!--            jQuery-2.1.0.js         --> 
     <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
     <script>
-        var newHeadingText = prompt("Введите заголовок:");
-        $("#main-heading").text(newHeadingText);
-        $("body").append("<p>Это новый параграф, добавленный с помощью jQuery</p>");
+        var friendsNames = ["Igor", "Vlad", "Boris"];
+        headingElement = document.getElementById("main-heading");
+        headingElement.innerHTML = "Friends: ";
+        for (x = 0; x < 3; x++) {
+            $("body").append("<p>" + friendsNames[x] + "</p>");
+
+        }
+        $("p").hide(0).fadeIn(3000).append(" is the best");
+
+        for(n = 500; n < 2500; n +=500) {
+            $("h1").fadeOut(n).fadeIn(n);
+        }
+
+        $("h2").delay(3000).fadeOut(2000).delay(5000).fadeIn(2000);
+        $("h3").fadeTo(2000, 0.5);
+
+        var timeUP = function () {
+            alert("ВРЕМЯ ВЫШЛО");
+        };
+
+        
+
+        timeoutId = setTimeout(timeUP, 5000);
+        clearTimeout(timeoutId);
+
+        var count = 0;
+        
+        var countFunction = function () {
+            timerElement = document.getElementById("timer");
+            timerElement.innerHTML = count;
+            console.log(count);
+            count++;
+        }
+        
+        var intervalId = setInterval(countFunction, 5000);
+
     </script>
 
 </body>
