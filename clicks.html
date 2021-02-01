@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang=ru>
+    <head>
+        <meta charset="UTF-8">
+        <title>Координаты кликов</title>
+    </head>
+    <body style="height: 800px">
+        <h1 id="heading">Привет, мир!</h1>
+        <h2 id="test" style="background-color: black; color: white; text-align: right;">Мир, привет!</h2>
+        <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+        <script>
+           var clickHandler = function (event) {
+               console.log("Клик! " + event.pageX + " " + event.pageY);
+           };
+           $("body").click(clickHandler);
+        </script> 
+    </body>
+</html>

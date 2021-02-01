@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang=ru>
+    <head>
+        <meta charset="UTF-8">
+        <title>Интерактивное программирование</title>
+    </head>
+    <body>
+        <h1 id="heading">Привет, мир!</h1>
+        <h2 id="test" style="background-color: black; color: white; text-align: right;">Мир, привет!</h2>
+        <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+        <script>
+            var leftOffset = 0;
+            var rightOffset = 0;
+            
+            var moveHeadingRight = function () {
+                $("#heading").offset({left:leftOffset});
+                leftOffset++;
+                if (leftOffset > 200) {
+                    leftOffset = 0;
+                }
+            }
+            var moveHeadingLeft = function () {
+                $("#test").offset({left:rightOffset});
+                rightOffset--;
+                if (rightOffset < -200) {
+                    rightOffset = 0;
+                }
+
+            }
+            setInterval(moveHeadingRight, 30);
+            setInterval(moveHeadingLeft, 10);
+            console.log(rightOffset, leftOffset);
+        </script> 
+    </body>
+</html>
