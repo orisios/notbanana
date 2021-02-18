@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Виселица</title>
 </head>
-<body style="background:black; color: white">
+<body>
+    <canvas id="canvas" width="500" height="500" style="border: black solid 2px"></canvas>
     <h1>Виселица</h1>
     <script>
         /*
@@ -32,6 +33,9 @@
 
 
 //         Функции
+
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
 
         var pickWord = function () {
             return words[Math.floor(Math.random() * words.length)];
@@ -64,54 +68,104 @@
 //         Выбрать случайное слово
         var words = [
             "тюлень",
-            "индюшка",
-            "огурец"
-
         ];
         var word = pickWord();
 
 //          Массив с ответом
         var answerArray = setupAnswerArray(word);
 
-        var wrong = null;
-
+        var wrong = [];
+        
         var remainingLetters = word.length;
         var remainingLettersFull = word.length;
-        var remainingAttempts = 10;
+        var remainingAttempts = 6;
 
-//          Игровой цикл
-//          Отображение состояния игры
+        //          Игровой цикл
+        //          Отображение состояния игры
         while (remainingLetters > 0 && remainingAttempts > 0) {
+            for (let j = 0; j < word.length; j++) {
+                ctx.fillText("_", 170 + 25 * j, 410);
+            }
             showPlayerProgress(answerArray);
             
-//          Обработка введённого ответа
+            //          Обработка введённого ответа
             var guess = getGuess();
-
+            
             if (guess === null) {
                 break;
             } else if (guess.length !== 1) {
                 alert("Пожалуйста, введите одну букву.");
-                remainingAttempts++;
+                remainingAttempts++;    
             } else {
-//          Обновление состояния игры
-            for (var j = 0; j < word.length; j++) {
-                if (word[j] === guess && answerArray[j] !== guess) {
-                    answerArray[j] = guess;
-                    remainingLetters--;
-                    alert("Верно! Осталось угадать букв: " + remainingLetters);
-                } else if (answerArray[j] === guess) {
-                    alert("Вы уже угадали эту букву");
-                    remainingAttempts++;
+                //          Обновление состояния игры
+                
+                for (let j = 0; j < word.length; j++) {
+                    if (word[j] === guess && answerArray[j] !== guess) {
+                        answerArray[j] = guess;
+                        remainingLetters--;
+                        alert("Верно! Осталось угадать букв: " + remainingLetters); 
+                        ctx.font = "20px Courier"
+                        ctx.fillText(answerArray[j].toUpperCase(), 170 + 25 * j, 400);
+                    } else if (answerArray[j] === guess) {
+                        alert("Вы уже угадали эту букву");
+                        remainingAttempts++;
+                    } else if (answerArray[j].toLowerCase()) {
+                        wrong.push(guess);
+                    } 
                 }
+            var wrongAnswers  = wrong[0] + wrong[5] + wrong[10] + wrong[15] + wrong[20] + wrong[25];
+
             }
+
+            if (wrong[0] === word[0]) {
+
+                console.log(wrong);
+            }
+            for (let i = 0; i < word.length; i++) {
+
             }
 
             remainingAttempts = (remainingAttempts - 1) + (remainingLettersFull - remainingLetters);
             
+            var wrongAnswer = 6 - remainingAttempts;
+
             if (remainingLettersFull - remainingLetters != 0) {
                 remainingLettersFull = remainingLettersFull - 1;
+                
             }
-            
+            if (wrongAnswer === 1) {
+                ctx.font = "20px Courier"
+                ctx.fillText(wrongAnswers[1].toUpperCase(), 400, 50);
+                ctx.fillRect(398, 42, 15, 2);
+                ctx.fillRect((250 - 60), 80, 100, 100);
+            } else if (wrongAnswer === 2) {
+                ctx.font = "20px Courier"
+                ctx.fillText(wrongAnswers[2].toUpperCase(), 400, 75);
+                ctx.fillRect(398, 67, 15, 2);
+                ctx.fillRect((250 - 60), 180, 10, 100);
+            } else if (wrongAnswer === 3) {
+                ctx.font = "20px Courier"
+                ctx.fillText(wrongAnswers[3].toUpperCase(), 400, 100);
+                ctx.fillRect(398, 92, 15, 2);
+                ctx.fillRect((200 - 60), 80, 200, 10);
+            } else if (wrongAnswer === 4) {
+                ctx.font = "20px Courier"
+                ctx.fillText(wrongAnswers[4].toUpperCase(), 400, 125);
+                ctx.fillRect(398, 117, 15, 2);
+                ctx.fillRect((340 - 60), 180, 10, 100);
+            } else if (wrongAnswer === 5) {
+                ctx.font = "20px Courier"
+                ctx.fillText(wrongAnswers[5].toUpperCase(), 400, 150);
+                ctx.fillRect(398, 142, 15, 2);
+                ctx.fillRect((295 - 60), 60, 10, 20);
+            } else if (wrongAnswer === 6) {
+                ctx.font = "20px Courier"
+                ctx.fillText(wrongAnswers[6].toUpperCase(), 400, 175);
+                ctx.fillRect(398, 167, 15, 2);
+                ctx.fillStyle = "red";
+                ctx.fillRect((275 - 60), 10, 50, 50);
+            }
+
             alert("Осталось попыток: " + remainingAttempts);
             if (remainingAttempts === 0) {
                 alert("Поражение...");
@@ -123,3 +177,4 @@
     </script>
 </body>
 </html>
+
